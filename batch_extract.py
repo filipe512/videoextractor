@@ -8,10 +8,11 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--input', help='Input video path to extract frames')
 parser.add_argument('--output', default='output', help='Output path where to extract frames')
 parser.add_argument('--force', help='Ignore if the output folder exists and overwrite the files', action='store_true')
+parser.add_argument('--rate', default=15, help='Only saves frames every X frames. It helps to speed up frame extraction')
 
 args = parser.parse_args()
 
-video_formats = ['.avi', '.m4v', '.mp4', '.wmv', '.flv']
+video_formats = ['.avi', '.m4v', '.mp4', '.wmv', '.flv', '.mkv']
 
 if __name__ == '__main__':
     file_list = []
@@ -21,7 +22,6 @@ if __name__ == '__main__':
                 file_list.append("{}\\{}".format(root, file))
     
     for file in file_list:
-        #print (Path(file).stem) #filename without extentions
         file_size = os.path.getsize(file)
         
         dir_path = "{}\\{}.{}".format(args.output, Path(file).stem, file_size)
@@ -38,6 +38,6 @@ if __name__ == '__main__':
         if not dir_exists:
             os.makedirs(dir_path)
            
-        extract(file, dir_path, 15)
+        extract(file, dir_path, args.rate)
         
     print ("Done")
