@@ -15,11 +15,9 @@ args = parser.parse_args()
 video_formats = ['.avi', '.m4v', '.mp4', '.wmv', '.flv', '.mkv']
 
 if __name__ == '__main__':
-    file_list = []
-    for root, dirs, files in os.walk(args.input):
-        for file in files:
-            if (Path(file).suffix in video_formats):
-                file_list.append("{}\\{}".format(root, file))
+    file_list = [os.path.join(d, x)
+    for d, dirs, files in os.walk(args.input)
+    for x in files if Path(x).suffix in video_formats]
     
     for file in file_list:
         file_size = os.path.getsize(file)
