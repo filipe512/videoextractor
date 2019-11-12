@@ -22,6 +22,7 @@ python batch_extract.py --input "DIR_PATH_WHERE_VIDEOS_ARE" --output "FOLDER_WHE
 
 ### Params
   --force Continue execution even if directory already exists
+  
   --rate Same as Single Video extraction
 
 
