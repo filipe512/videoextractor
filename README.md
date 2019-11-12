@@ -13,7 +13,7 @@ python extract.py --input "VIDEO_PATH" --output "FOLDER_WHERE_YOU_WANT_TO_SAVE_T
   --rate parameter is to define how many frames you want to skip before capture/save. The default rate is equals to 1.
 
 
-## Batch extration
+## Batch extraction
 In order to extract frames from multiple videos, you may want to call the batch_extract script instead
 
 ```
