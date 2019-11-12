@@ -7,7 +7,6 @@ This project aims to develop tools to help fast iterate over video files and man
 To extract the frames simply use the python command below:
 
 ```
-Give examples
 python extract.py --input "VIDEO_PATH" --output "FOLDER_WHERE_YOU_WANT_TO_SAVE_THE_FRAMES" --rate 15
 ```
 
