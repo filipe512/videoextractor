@@ -1,8 +1,6 @@
 # Video Frame Extractor
 
-This project aims to develop tools to help fast iterate over video files and manipulate frames
-
-Specially to use ML and DNN tools to infere and train data.
+This project aims to develop tools to help fast iterate over video files and manipulate frames. Specially in the usage of ML and DNN tools to infere and train data.
 
 ## Getting Started
 
