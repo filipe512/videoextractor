@@ -41,8 +41,8 @@ def extract(input_path, output_folder, rate):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--input', help='Input video path to extract frames')
-    parser.add_argument('--output', default='tmp_frame', help='Output path where to extract frames')
+    parser.add_argument('--input', required=True, help='Input video path to extract frames')
+    parser.add_argument('--output',required=True, help='Output path where to extract frames')
     parser.add_argument('--rate', default=1, help='Only saves frames every X frames. It helps to speed up frame extraction')
     args = parser.parse_args()
     
