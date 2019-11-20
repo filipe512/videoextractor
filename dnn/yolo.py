@@ -25,7 +25,7 @@ ap.add_argument("-s", "--show_output", default=False, help="it shows the output 
 args = ap.parse_args()
 
 
-def convert(size, box):
+def convert_points_to_darknet(size, box):
 	print ("Width={}, Height={}".format(size[0],size[1]))
 	print ("Xmin={}, Xmax={}, Ymin={}, Ymax={}".format(box[0],box[1],box[2],box[3]))
 	dw = 1./size[0]
@@ -163,7 +163,7 @@ def save_txt(image_height, image_width, boxes, confidences, classIDs, indices, l
 				ymax = y + h
 				
 				b = (float(xmin), float(xmax), float(ymin), float(ymax))
-				bb = convert((image_width,image_height), b)
+				bb = convert_points_to_darknet((image_width,image_height), b)
 
 				save_path_without_extension = str(Path(args.input).parent / Path(args.input).stem) 
 				output_save =  save_path_without_extension + '.txt'

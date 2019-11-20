@@ -1,0 +1,17 @@
+{
+  "folders":
+  [{
+    "path": ".\\dnn\\"
+  }],
+  "build_systems":
+  [{
+    "name": "Run C Pickle",
+    "cmd": ["python", "$file"]
+  },{
+    "name": "Run detect faces",
+    "cmd": ["python", "$file", "--image", "C:\\Users\\ribeirfi\\git\\Pytorch_Retinaface\\curve\\output\\frame2070.jpg", "--model", "C:\\Users\\ribeirfi\\git\\videoextractor\\weights\\res10_300x300_ssd.caffemodel", "--prototxt", "C:\\Users\\ribeirfi\\git\\videoextractor\\weights\\deploy.prototxt"]
+  },{
+    "name": "Run detect faces with retinaface",
+    "cmd": ["python", "$file", "--image", "C:\\Users\\ribeirfi\\git\\Pytorch_Retinaface\\curve\\output\\frame2070.jpg", "--model", "C:\\Users\\ribeirfi\\git\\videoextractor\\weights\\mnetv2_25.caffemodel", "--prototxt", "C:\\Users\\ribeirfi\\git\\videoextractor\\weights\\mnetv2_25.prototxt"]
+  }]
+}
