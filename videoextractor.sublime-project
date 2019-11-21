@@ -9,9 +9,19 @@
     "cmd": ["python", "$file"]
   },{
     "name": "Run detect faces",
-    "cmd": ["python", "$file", "--image", "C:\\Users\\ribeirfi\\git\\Pytorch_Retinaface\\curve\\output\\frame2070.jpg", "--model", "C:\\Users\\ribeirfi\\git\\videoextractor\\weights\\res10_300x300_ssd.caffemodel", "--prototxt", "C:\\Users\\ribeirfi\\git\\videoextractor\\weights\\deploy.prototxt"]
+    "cmd": [
+              "python", 
+              "$file", 
+              "--image", "C:\\Users\\ribeirfi\\git\\Pytorch_Retinaface\\curve\\output\\frame240.jpg",
+              "--model", "C:\\Users\\ribeirfi\\git\\videoextractor\\weights\\res10_300x300_ssd.caffemodel", 
+              "--prototxt", "C:\\Users\\ribeirfi\\git\\videoextractor\\weights\\deploy.prototxt"]
   },{
-    "name": "Run detect faces with retinaface",
-    "cmd": ["python", "$file", "--image", "C:\\Users\\ribeirfi\\git\\Pytorch_Retinaface\\curve\\output\\frame2070.jpg", "--model", "C:\\Users\\ribeirfi\\git\\videoextractor\\weights\\mnetv2_25.caffemodel", "--prototxt", "C:\\Users\\ribeirfi\\git\\videoextractor\\weights\\mnetv2_25.prototxt"]
+    "name": "Run extract embeddings",
+    "cmd": [
+              "python", 
+              "$file", 
+              "--input_dir", "C:\\Users\\ribeirfi\\git\\Pytorch_Retinaface\\curve\\output\\faces",
+              "--output", "C:\\Users\\ribeirfi\\git\\Pytorch_Retinaface\\curve\\output\\embeddings", 
+             "--embedding-model", "C:\\Users\\ribeirfi\\git\\videoextractor\\weights\\openface_nn4.small2.v1.t7"]
   }]
 }

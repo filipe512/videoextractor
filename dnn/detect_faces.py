@@ -1,14 +1,13 @@
-# USAGE
 # python detect_faces.py --image rooster.jpg --prototxt deploy.prototxt.txt --model res10_300x300_ssd_iter_140000.caffemodel
 
-# import the necessary packages
+import os
 import numpy as np
 import argparse
 import cv2
 import torch 
 import random
+from pathlib import Path
 
-# construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--image", required=True,	help="path to input image")
 ap.add_argument("-p", "--prototxt", required=True, help="path to Caffe 'deploy' prototxt file")
@@ -26,41 +25,43 @@ def input_for_retinaface(image):
 def get_scores_ssd(img, detections):
 	# loop over the detections
 	for i in range(0, detections.shape[2]):
-		# extract the confidence (i.e., probability) associated with the
-		# prediction
+		# extract the confidence (i.e., probability) associated with the prediction
 		confidence = detections[0, 0, i, 2]
 
-		# filter out weak detections by ensuring the `confidence` is
-		# greater than the minimum confidence
+		# filter out weak detections by ensuring the `confidence` is greater than the minimum confidence
 		if confidence > args["confidence"]:
 			print (confidence)
-			# compute the (x, y)-coordinates of the bounding box for the
-			# object
+			# compute the (x, y)-coordinates of the bounding box for the object
 			box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
 			(startX, startY, endX, endY) = box.astype("int")
 
 
 			refPoint = [(startX, startY), (endX, endY)]
 			cropped = img[refPoint[0][1]:refPoint[1][1], refPoint[0][0]:refPoint[1][0]]
-			TMP_FACE_FILE = 'face{}.jpg'
-			name = TMP_FACE_FILE.format(random.randint(1,30000000))
-			cv2.imwrite(name, cropped)
 
-	 
-			# draw the bounding box of the face along with the associated
-			# probability
+			count_face = 0
+			file_exists = True
+			output_path = None
+
+			while (file_exists):
+				output_path = "{}\\{}_face{}.jpg".format(Path(args["image"]).parent, Path(args["image"]).stem, count_face)
+				print ("Output Path: {}".format(output_path))
+				file_exists = os.path.exists(output_path)
+				count_face += 1
+
+			cv2.imwrite(output_path, cropped)
+
+			# draw the bounding box of the face along with the associated probability
 			text = "{:.2f}%".format(confidence * 100)
 			y = startY - 10 if startY - 10 > 10 else startY + 10
 			cv2.rectangle(image, (startX, startY), (endX, endY), (0, 0, 255), 2)
 			cv2.putText(image, text, (startX, y), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 255), 2)
 
-
-	# show the output image
+	#show the output image
 	#cv2.imshow("Output", image)
 	#cv2.waitKey(0)
 
       
-# load our serialized model from disk
 print("[INFO] loading model...")
 net = cv2.dnn.readNetFromCaffe(args["prototxt"], args["model"])
 
