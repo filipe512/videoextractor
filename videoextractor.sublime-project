@@ -23,5 +23,24 @@
               "--input_dir", "C:\\Users\\ribeirfi\\git\\Pytorch_Retinaface\\curve\\output\\faces",
               "--output", "C:\\Users\\ribeirfi\\git\\Pytorch_Retinaface\\curve\\output\\embeddings", 
              "--embedding-model", "C:\\Users\\ribeirfi\\git\\videoextractor\\weights\\openface_nn4.small2.v1.t7"]
-  }]
+  }, {
+    "name": "Run deep pose MPI",
+    "cmd": [
+              "python", 
+              "$file", 
+              "--input", "C:\\Users\\ribeirfi\\git\\Pytorch_Retinaface\\curve\\output\\trailer - Copy (2).31617497\\frame1290.jpg",
+              "--proto", "C:\\Users\\ribeirfi\\git\\videoextractor\\weights\\pose_deploy_linevec_faster_4_stages.prototxt",
+              "--model", "C:\\Users\\ribeirfi\\git\\videoextractor\\weights\\pose_iter_160000.caffemodel",
+              "--dataset", "MPI"]
+  }, {
+    "name": "Run deep pose Coco Multi person",
+    "cmd": [
+              "python", 
+              "$file", 
+              "--input", "C:\\Users\\ribeirfi\\git\\Pytorch_Retinaface\\curve\\output\\trailer - Copy (2).31617497\\frame120.jpg",
+              "--proto", "C:\\Users\\ribeirfi\\git\\videoextractor\\weights\\pose_deploy_linevec_faster_4_stages.prototxt",
+              "--model", "C:\\Users\\ribeirfi\\git\\videoextractor\\weights\\pose_iter_440000.caffemodel",
+              "--dataset", "COCO"]
+  }
+]
 }

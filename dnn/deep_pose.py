@@ -1,10 +1,13 @@
+#python3 run_pose.py --input sample.jpg --proto pose/mpi/pose_deploy_linevec_faster_4_stages.prototxt  --model pose/mpi/pose_iter_160000.caffemodel --dataset MPI
 # To use Inference Engine backend, specify location of plugins:
-# export LD_LIBRARY_PATH=/opt/intel/deeplearning_deploymenttoolkit/deployment_tools/external/mklml_lnx/lib:$LD_LIBRARY_PATH
+
 import cv2 as cv
 import numpy as np
 import argparse
 #import imutils
 import time
+from pathlib import Path
+
 parser = argparse.ArgumentParser(
         description='This script is used to demonstrate OpenPose human pose estimation network '
                     'from https://github.com/CMU-Perceptual-Computing-Lab/openpose project using OpenCV. '
@@ -12,8 +15,7 @@ parser = argparse.ArgumentParser(
 parser.add_argument('--input', help='Path to input image.')
 parser.add_argument('--proto', help='Path to .prototxt')
 parser.add_argument('--model', help='Path to .caffemodel')
-parser.add_argument('--dataset', help='Specify what kind of model was trained. '
-                                      'It could be (COCO, MPI) depends on dataset.')
+parser.add_argument('--dataset', help='Specify what kind of model was trained. It could be (COCO, MPI) depends on dataset.')
 parser.add_argument('--thr', default=0.1, type=float, help='Threshold value for pose parts heat map')
 parser.add_argument('--width', default=368, type=int, help='Resize input to specific width.')
 parser.add_argument('--height', default=368, type=int, help='Resize input to specific height.')
@@ -43,9 +45,8 @@ elif args.dataset=='MPI':
                    ["LElbow", "LWrist"], ["Neck", "Chest"], ["Chest", "RHip"], ["RHip", "RKnee"],
                    ["RKnee", "RAnkle"], ["Chest", "LHip"], ["LHip", "LKnee"], ["LKnee", "LAnkle"] ]
 else:
-    
     BODY_PARTS ={"Nose":0,"Neck":1,"RShoulder":2,"RElbow":3,"RWrist":4,
-    "LShoulder":5,"LElbow":6,"LWrist":7,"MidHip":8,"RHip":9,"RKnee":10
+    "LShoulder":5,"LElbow":6,"LWrist":7,"MidHip":8,"RHip":9,"RKnee":10,
     "RAnkle":11,"LHip":12,"LKnee":13,"LAnkle":14,"REye":15,"LEye":16,
     "REar":17,"LEar":18,"LBigToe":19,"LSmallToe":20,"LHeel":21,"RBigToe":22,
     "RSmallToe":23,"RHeel":24,"Background":25}
@@ -110,9 +111,12 @@ for pair in POSE_PAIRS:
         cv.putText(frame, str(idFrom), points[idFrom], cv.FONT_HERSHEY_SIMPLEX, 0.75, (255, 255, 255),2,cv.LINE_AA)
         cv.putText(frame, str(idTo), points[idTo], cv.FONT_HERSHEY_SIMPLEX, 0.75, (255, 255, 255),2,cv.LINE_AA)
        
-t, _ = net.getPerfProfile()
-freq = cv.getTickFrequency() / 1000
-cv.putText(frame, '%.2fms' % (t / freq), (10, 20), cv.FONT_HERSHEY_SIMPLEX, 0.75, (255, 255, 255),2,cv.LINE_AA)
+#t, _ = net.getPerfProfile()
+#freq = cv.getTickFrequency() / 1000
+#cv.putText(frame, '%.2fms' % (t / freq), (10, 20), cv.FONT_HERSHEY_SIMPLEX, 0.75, (255, 255, 255),2,cv.LINE_AA)
 
-cv.imshow(kwinName, frame)
-cv.imwrite('result_'+args.input,frame)
+#cv.imshow(kwinName, frame)
+
+save_path = "{}\\{}_pose.jpg".format(Path(args.input).parent, Path(args.input).stem)
+print (save_path)
+cv.imwrite(save_path,frame)
