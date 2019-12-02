@@ -7,6 +7,8 @@ from imutils.video import FileVideoStream
 from imutils.video import FPS
 from pathlib import Path
 
+image_formats = ['.jpg']
+
 def extract(input_path, output_folder, rate):
     STR_FRAME_PATH = "{}\\frame{}.jpg"
     video_args = {}
