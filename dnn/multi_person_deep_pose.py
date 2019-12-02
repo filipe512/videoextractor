@@ -40,7 +40,6 @@ colors = [ [0,100,255], [0,100,255], [0,255,255], [0,100,255], [0,255,255], [0,1
          [0,255,0], [255,200,100], [255,0,255], [0,255,0], [255,200,100], [255,0,255],
          [0,0,255], [255,0,0], [200,200,0], [255,0,0], [200,200,0], [0,0,0]]
 
-
 def getKeypoints(probMap, threshold=0.1):
 
     mapSmooth = cv2.GaussianBlur(probMap,(3,3),0,0)
@@ -48,7 +47,8 @@ def getKeypoints(probMap, threshold=0.1):
     mapMask = np.uint8(mapSmooth>threshold)
     keypoints = []
 
-    #find the blobs    
+    #find the blobs
+    #_, contours, _ = cv2.findContours(mapMask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     contours, hierarchy = cv2.findContours(mapMask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
     #for each blob find the maxima
@@ -180,9 +180,11 @@ net = cv2.dnn.readNetFromCaffe(protoFile, weightsFile)
 
 # Fix the input Height and get the width according to the Aspect Ratio
 inHeight = args.height
-inWidth = int((inHeight/frameHeight)*frameWidth)
-
-inpBlob = cv2.dnn.blobFromImage(image1, 1.0 / 255, (inWidth, inHeight), (0, 0, 0), swapRB=False, crop=False)
+#inWidth = int((inHeight/frameHeight)*frameWidth)
+inWidth = args.height
+#image1 = cv2.resize(image1, (250, 250))
+inpBlob = cv2.dnn.blobFromImage(image1, 1.0 / 255, (inWidth, inHeight),
+                          (0, 0, 0), swapRB=False, crop=False)
 
 net.setInput(inpBlob)
 output = net.forward()
@@ -206,7 +208,6 @@ for part in range(nPoints):
 
     detected_keypoints.append(keypoints_with_id)
 
-print ("Detected points: {}".format(detected_keypoints))
 
 frameClone = image1.copy()
 for i in range(nPoints):

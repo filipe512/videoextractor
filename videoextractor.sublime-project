@@ -28,7 +28,7 @@
     "cmd": [
               "python", 
               "$file", 
-              "--input", "C:\\Users\\ribeirfi\\git\\Pytorch_Retinaface\\curve\\output\\trailer - Copy (2).31617497\\frame1290.jpg",
+              "--input", "C:\\Users\\ribeirfi\\git\\Pytorch_Retinaface\\curve\\output\\back.jpg",
               "--proto", "C:\\Users\\ribeirfi\\git\\videoextractor\\weights\\pose_deploy_linevec_faster_4_stages.prototxt",
               "--model", "C:\\Users\\ribeirfi\\git\\videoextractor\\weights\\pose_iter_160000.caffemodel",
               "--dataset", "MPI"]
@@ -37,7 +37,8 @@
     "cmd": [
               "python", 
               "$file", 
-              "--input", "C:\\Users\\ribeirfi\\git\\Pytorch_Retinaface\\curve\\output\\trailer - Copy (2).31617497\\frame120.jpg",
+              "--input", "C:\\Users\\ribeirfi\\git\\Pytorch_Retinaface\\curve\\output\\trailer - Copy (2).31617497\\frame150.jpg",
+              //"--input", "C:\\Users\\ribeirfi\\git\\Pytorch_Retinaface\\curve\\output\\frame240.jpg",
               "--proto", "C:\\Users\\ribeirfi\\git\\videoextractor\\weights\\pose_deploy_linevec_faster_4_stages.prototxt",
               "--model", "C:\\Users\\ribeirfi\\git\\videoextractor\\weights\\pose_iter_440000.caffemodel",
               "--dataset", "COCO"]
