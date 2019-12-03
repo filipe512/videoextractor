@@ -18,6 +18,8 @@ download_data_files = ['coco.names']
 open_pose_files = ['pose_iter_160000.caffemodel','pose_iter_440000.caffemodel']
 
 
+
+
 dir_path = 'weights'
 dir_exists = os.path.exists(dir_path)
 
@@ -41,6 +43,7 @@ download_files(download_config_files, dir_path, base_path_config)
 download_files(download_data_files, dir_path, base_data_config)
 download_files(open_pose_files, dir_path, open_pose_mpi_base)
 download_files(open_pose_files, dir_path, open_pose_coco_base)
+wget.download("https://onnxzoo.blob.core.windows.net/models/opset_8/emotion_ferplus/emotion_ferplus.tar.gz", out=dir_path)
 
 
 

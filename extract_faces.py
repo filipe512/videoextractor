@@ -13,6 +13,9 @@ from imutils.video import FileVideoStream
 from imutils.video import FPS
 from pathlib import Path
 from dnn.face_tools import extract_faces_from_image
+from dnn.face_tools import save_faces_from_image
+from dnn.age_gender_tools import get_gender, get_age
+
 
 image_formats = ['.jpg']
 
@@ -26,7 +29,7 @@ def extract(input_path, output_folder, rate):
     
     framecount = 0
     fps = FPS().start()
-    net = cv2.dnn.readNetFromCaffe(args.prototxt, args.model)
+    net = cv2.dnn.readNetFromCaffe(args.face_prototxt, args.face_model)
 
     while fvs.running():
         frame = fvs.read()
@@ -38,8 +41,16 @@ def extract(input_path, output_folder, rate):
             print ("Extrating frame {}".format(framecount), end="\r")
             path = "{}\\{}{}.jpg".format(Path(args.input).parent, Path(args.input).stem, framecount)
 
-            extract_faces_from_image(frame, path, args.confidence, net)
-            #cv2.imwrite(STR_FRAME_PATH.format(output_folder, str(framecount)),frame)
+            faces = extract_faces_from_image(frame, path, args.confidence, net)
+            faces_to_save = []
+
+            for face in faces:
+                gender = get_gender(face, args.gender_model, args.gender_proto)
+                if gender["gender"] == "Female" and gender["conf"] > 0.98:
+                    faces_to_save.append(face)
+
+
+            save_faces_from_image(faces_to_save, path)
         else:
             continue
             
@@ -56,9 +67,13 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--input', required=True, help='Input video path to extract frames')
     parser.add_argument('--output',required=True, help='Output path where to extract frames')
-    parser.add_argument("--prototxt", required=True, help="path to Caffe 'deploy' prototxt file")
+    parser.add_argument("--face_prototxt", default="./weights/deploy.prototxt", help="path to Caffe 'deploy' prototxt file")
+    parser.add_argument("--face_model", default="./weights/res10_300x300_ssd.caffemodel", help="path to Caffe pre-trained model")
+    parser.add_argument('--age_model', default="./weights/age_net.caffemodel")
+    parser.add_argument('--age_proto', default="./weights/age_deploy.prototxt")
+    parser.add_argument('--gender_model', default="./weights/gender_net.caffemodel")
+    parser.add_argument('--gender_proto', default="./weights/gender_deploy.prototxt")
     parser.add_argument("-c", "--confidence", type=float, default=0.6, help="minimum probability to filter weak detections")
-    parser.add_argument("--model", required=True, help="path to Caffe pre-trained model")
     parser.add_argument('--rate', default=15, help='Only saves frames every X frames. It helps to speed up frame extraction')
     args = parser.parse_args()
     
