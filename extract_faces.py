@@ -1,8 +1,7 @@
-#python extract_faces.py 
-#--input C:\Users\ribeirfi\git\Pytorch_Retinaface\curve\trailer.m4v 
+#python extract_faces.py --input C:\Users\ribeirfi\git\Pytorch_Retinaface\curve\trailer.m4v --output .
 #--prototxt ./weights/deploy.prototxt 
 #--model ./weights/res10_300x300_ssd.caffemodel 
-#--output .
+
 
 import argparse
 import os
